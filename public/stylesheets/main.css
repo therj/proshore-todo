@@ -41,10 +41,6 @@ ul.todos {
   display: none;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
 .nav-tabs {
   margin-top: 20px;
 }
