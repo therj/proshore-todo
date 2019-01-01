@@ -54,7 +54,7 @@ ul.todos {
 
 .hide-message {
   visibility: hidden;
-  transition: visibility 2s;
+  /* transition: visibility 0.1s; */
 }
 
 span.name {

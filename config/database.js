@@ -9,5 +9,7 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 mongoose.Promise = global.Promise;
+// deprecated method!
+mongoose.set('useFindAndModify', false);
 
 module.exports = mongoose;

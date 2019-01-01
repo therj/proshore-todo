@@ -1,7 +1,7 @@
 const URL = '/todos/';
 const ul = document.querySelector('ul.nav');
 const theList = document.querySelector('#the-list');
-let response;
+// let response;
 let allItems;
 let currentList;
 let currentItems;
@@ -43,17 +43,14 @@ const todoList = (URL = URL) => {
       }
     })
     .then((res) => {
-      response = res;
       allItems = sortByKey(res.data.todos, 'date');
-      // allItems = response.data.todos;
       // console.log(allItems);
       if (currentView === 'up') {
         loadUpcoming();
       } else if (currentView === 'completed') {
         loadCompleted();
       } else {
-        createList(allItems);
-        currentView = 'all';
+        loadAll();
       }
     });
 };
@@ -101,7 +98,6 @@ function createList(todos) {
       } else if (key === 'done') {
         span.innerText = doneText;
         span.classList.add(doneClass);
-        span.classList.add('done');
       } else {
         span.innerText = todo[key];
       }
@@ -116,9 +112,11 @@ function createList(todos) {
     ulNew.appendChild(li);
   }
 
-  currentList = ulNew;
-  theList.appendChild(currentList);
-  setListListeners();
+  return ulNew;
+  // currentList = ulNew;
+  // theList.appendChild(currentList);
+  // setListListeners();
+
   // console.log(currentList);
   // console.log(someObjects);
   // return;
@@ -147,32 +145,36 @@ function loadUpcoming(e) {
     console.log(item.done);
     return item.date > now && !item.done;
   });
-  createList(currentItems);
+  currentList = createList(currentItems);
   theList.innerHTML = '';
   theList.appendChild(currentList);
   currentView = 'up';
+  setListListeners();
 }
 
 const all = document.querySelector('#all');
-all.addEventListener('click', loadCompleted);
+all.addEventListener('click', loadAll);
 
-function loadCompleted(e) {
-  createList(allItems);
+function loadAll() {
+  currentView = 'all';
+  currentList = createList(allItems);
   theList.innerHTML = '';
   theList.appendChild(currentList);
-  currentView = 'completed';
+  setListListeners();
 }
-
 const complete = document.querySelector('#complete');
+complete.addEventListener('click', loadCompleted);
 
-complete.addEventListener('click', function(e) {
+function loadCompleted(e) {
+  currentView = 'completed';
   currentItems = allItems.filter(function(item) {
     return item.done;
   });
-  createList(currentItems);
+  currentList = createList(currentItems);
   theList.innerHTML = '';
   theList.appendChild(currentList);
-});
+  setListListeners();
+}
 
 // Form picker
 
@@ -234,20 +236,63 @@ function alertMessage(state, message) {
   return;
 }
 
+const deleteTodo = (id) => {
+  fetch(`${URL}/${id}`, {
+    method: 'delete'
+  }).then((res) =>
+    res.json().then((json) => {
+      console.log('DELETED!', res);
+      loader();
+      return json;
+    })
+  );
+};
+
+const markTodo = (todo) => {
+  fetch(URL + '/' + todo.id, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: todo.name,
+      short_description: todo.short_description,
+      date: todo.date,
+      done: !todo.done
+    })
+  }).then((res) => {
+    loader();
+    // console.log('Marked Done!', res);
+    // return json;
+  });
+};
 function setListListeners() {
   let delElements = document.querySelectorAll('.delete');
   let markElements = document.querySelectorAll('.done');
 
   for (var i = 0; i < delElements.length; i++) {
     delElements[i].addEventListener('click', function() {
-      console.log(this.parentNode.id);
-      
-      console.log('Delete elementsclicked');
+      deleteTodo(this.parentNode.id);
     });
   }
   for (var i = 0; i < markElements.length; i++) {
     markElements[i].addEventListener('click', function() {
-      console.log('MarkElementsclicked');
+      let todo = {};
+      for (let index = 0; index < this.parentNode.childElementCount; index++) {
+        // const element = array[index];
+        let prop = this.parentNode.children[index].classList[0];
+        let val = this.parentNode.children[index].innerText;
+        todo[prop] = val;
+      }
+      todo.date = Math.round(Number(new Date(todo.date)) / 1000);
+      todo.done = todo.done === 'Undo' ? true : false;
+      // console.log(todo);
+      markTodo(todo);
+
+      // console.log(this.parentNode.children);
+
+      // markTodo(this.parentNode.id);
     });
   }
 }
