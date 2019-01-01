@@ -39,9 +39,16 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
-  // console.log(err);
-  if (err.status === 404) res.status(404).json({ message: 'Not found' });
-  else res.status(500).json({ message: 'Internal error occurred' });
+  console.log(err.status, err.message);
+
+  if (err.status === 404)
+    res.status(404).json({ status: 'error', message: 'Not found' });
+  else if (err.status && err.message)
+    res.status(err.status).json({ status: 'error', message: err.message });
+  else
+    res
+      .status(500)
+      .json({ status: 'error', message: 'Internal error occurred' });
 });
 
 app.listen(port, () => {
