@@ -15,15 +15,10 @@ const TodoSchema = new Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: Number, //epoch time!
     trim: true,
     required: true
   },
-  // time: {
-  //   type: Date,
-  //   trim: true,
-  //   required: true
-  // },
   done: {
     type: Boolean,
     required: true

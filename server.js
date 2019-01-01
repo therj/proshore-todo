@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 const port = process.env.PORT;
 
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const todos = require('./routes/todos');
@@ -12,8 +13,11 @@ const cors = require('cors');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-const mongoose = require('./config/database');
+app.use('/static', express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
+const mongoose = require('./config/database');
 // connect to mongodb
 mongoose.connection.on(
   'error',
@@ -23,9 +27,8 @@ app.use(cors());
 app.use(logger('dev'));
 
 app.use('/todos', todos);
-
 app.get('/', function(req, res) {
-  res.json({ test: 'Build ToDo with NodeJS!' });
+  res.render('index', { title: 'Proshore', app: 'Todo' });
 });
 
 // handle 404 error
@@ -36,9 +39,9 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(err, req, res, next) {
-  console.log(err);
+  // console.log(err);
   if (err.status === 404) res.status(404).json({ message: 'Not found' });
-  else res.status(500).json({ message: 'Something looks wrong :( !!!' });
+  else res.status(500).json({ message: 'Internal error occurred' });
 });
 
 app.listen(port, () => {

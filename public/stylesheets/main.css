@@ -1,0 +1,90 @@
+body {
+  margin: auto;
+}
+.container {
+  width: 50%;
+  min-width: 320px;
+  margin: auto;
+  text-align: center;
+}
+ul.todos {
+  list-style: none;
+  text-align: justify;
+}
+.nav-pills {
+  float: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: bold;
+}
+.bold {
+  font-weight: bold;
+}
+#the-list {
+  margin-top: 20px;
+}
+#the-list ul {
+  margin: 0;
+  list-style: none;
+}
+#the-list ul li {
+  text-align: left;
+  margin-bottom: 10px;
+}
+#the-list ul li span,
+#the-list ul li span {
+  display: block;
+}
+#the-list ul li .id {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-tabs {
+  margin-top: 20px;
+}
+.form-in-modal {
+  margin: 10px 20px;
+}
+
+.hide-message {
+  visibility: hidden;
+  transition: visibility 2s;
+}
+
+span.name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+span.short_description {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+span.date {
+  font-size: 0.8rem;
+}
+span.done,
+span.delete {
+  padding: 5px 5px;
+  text-align: center;
+}
+span.done:hover,
+span.delete:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+li.completed {
+  background: rgba(0, 255, 0, 0.05);
+  border-bottom: 2px solid green;
+}
+
+li.late {
+  background: rgba(255, 0, 0, 0.05);
+  border-bottom: 2px solid red;
+}

@@ -1,6 +1,9 @@
 //Set up mongoose connection
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb://localhost/proshore-todo';
+const mongoDB = process.env.mongoDB;
 mongoose.connect(
   mongoDB,
   { useNewUrlParser: true }

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Todo | Proshore</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap-datetimepicker.min.css" />
+    <script src="/static/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="/static/stylesheets/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="bold">Proshore Todo</h1>
+      <h2 class="text-center">
+        Welcome to Express Todo app by<a href="https://github.com/therj">
+          @therj
+        </a>
+      </h2>
+      <button
+        type="button"
+        class="btn btn-lg btn-primary"
+        data-toggle="modal"
+        data-target=".new-todo"
+      >
+        Add A Todo
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade new-todo"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myLargeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form class="form-in-modal">
+              <div class=" form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Todo Name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="short_description">Description</label>
+                <textarea
+                  placeholder="Put a short description for yourself."
+                  class="form-control short_description"
+                  id="short_description"
+                  name="short_description"
+                  rows="2"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input
+                  type="text"
+                  class="form-control date form_datetime"
+                  name="date"
+                />
+                <script type="text/javascript">
+                  $('.form_datetime').datetimepicker({
+                    format: 'dd MM yyyy - HH:ii P',
+                    showMeridian: true,
+                    autoclose: true,
+                    todayBtn: true
+                  });
+                </script>
+              </div>
+              <div class="alert form-alert" role="alert"></div>
+
+              <div class="form-group">
+                <button type="submit" class="btn submit btn-primary btn-lg">
+                  Add to list
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+
+      <ul class="nav nav-tabs nav-fill">
+        <li class="nav-item" id="all">
+          <a class="nav-link active" href="#">All</a>
+        </li>
+        <li class="nav-item" id="up">
+          <a class="nav-link" href="#">Upcoming</a>
+        </li>
+        <li class="nav-item" id="complete">
+          <a class="nav-link" href="#">Completed</a>
+        </li>
+      </ul>
+      <div id="the-list"></div>
+    </div>
+
+    <script src="/static/javascripts/main.js"></script>
+  </body>
+</html>
