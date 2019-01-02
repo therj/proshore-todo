@@ -194,8 +194,8 @@ formSubmit.addEventListener('submit', function(e) {
       message = 'Enter Todo Name';
     } else if (!data.short_description) {
       message = 'Enter a short description.';
-    } else if (!date) {
-      message = 'Enter a short description.';
+    } else if (!data.date) {
+      message = 'Enter a valid date.';
     } else if (data.date < now) {
       message = 'Wooho.. Enter a future date!';
     }
