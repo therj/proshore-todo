@@ -89,7 +89,3 @@ li.late {
   border-bottom: 2px solid red;
 }
 
-/*  Override bootstrap weird focus! */
-.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
-    border-color: transparent;
-}
