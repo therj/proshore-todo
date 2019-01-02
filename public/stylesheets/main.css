@@ -88,3 +88,8 @@ li.late {
   background: rgba(255, 0, 0, 0.05);
   border-bottom: 2px solid red;
 }
+
+/*  Override bootstrap weird focus! */
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    border-color: transparent;
+}
