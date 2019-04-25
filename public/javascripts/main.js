@@ -183,6 +183,7 @@ formSubmit.addEventListener('submit', function(e) {
   e.preventDefault();
   const name = e.target.name.value;
   const short_description = e.target.short_description.value;
+  console.log(e.target.date.value)
   const date = Math.round(Number(new Date(e.target.date.value)) / 1000);
   //debug date validation error
   console.log(date)
