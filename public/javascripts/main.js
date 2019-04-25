@@ -184,7 +184,8 @@ formSubmit.addEventListener('submit', function(e) {
   const name = e.target.name.value;
   const short_description = e.target.short_description.value;
   const date = Math.round(Number(new Date(e.target.date.value)) / 1000);
-
+  //debug date validation error
+  console.log(date)
   // var url = 'https://example.com/profile';
   let data = { name, short_description, date };
   let now = Number(new Date() / 1000);
