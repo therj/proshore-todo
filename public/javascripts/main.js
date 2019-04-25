@@ -183,12 +183,12 @@ formSubmit.addEventListener('submit', function(e) {
   e.preventDefault();
   const name = e.target.name.value;
   const short_description = e.target.short_description.value;
-  console.log("e.target.date.value",e.target.date.value);
-  console.log("new Date(e.target.date.value)",new Date(e.target.date.value));
-  console.log("Number(new Date(e.target.date.value)) / 1000",Number(new Date(e.target.date.value)) / 1000)
-  const date = Math.round(Number(new Date(e.target.date.value)) / 1000);
+  let date = e.target.date.value;
+  date = date.toString();
+  date = date.replace(/-/g, "");
+  date = Math.round(Number(new Date(date)) / 1000);
   //debug date validation error
-  console.log(date)
+  //console.log(date)
   // var url = 'https://example.com/profile';
   let data = { name, short_description, date };
   let now = Number(new Date() / 1000);
